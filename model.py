@@ -5,7 +5,7 @@ import numpy as np
 
 TRAIN_PATH = 'Image/Fire'
 
-train_ids = next(os.walk(TRAIN_PATH))[1]
+
 
 IMG_WIDTH = 128
 IMG_HEIGHT = 128
@@ -85,4 +85,4 @@ X_train = data['X_train']
 Y_train = data['Y_train']
 results = model.fit(X_train,Y_train,validation_split=0.1, batch_size=2,epochs=25,callbacks = callbacks)
 
-results.save('Model')
+model.save("Modelv1")
