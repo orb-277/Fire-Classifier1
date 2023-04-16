@@ -8,6 +8,19 @@ folder='Fire'
 images=[]
 filename1 = "segmented_imgs/img" ## something that changes in this loop -> you can set a complete path to manage folders
 i=1
+def count_yellow(hsv):
+     # Define the lower and upper bounds of the yellow color in HSV
+    lower_yellow = (20, 200, 200)
+    upper_yellow = (30, 255, 255)
+
+    # Threshold the image to extract yellow regions
+    mask = cv2.inRange(hsv, lower_yellow, upper_yellow)
+
+    # Count the number of yellow pixels in the image
+    num_yellow_pixels = cv2.countNonZero(mask)
+
+    # Display the number of yellow pixels
+    print("Number of yellow pixels:", num_yellow_pixels)
 def count_bright_pixels(hsv, threshold):
     # convert to HSV color space
     count=0
@@ -41,7 +54,7 @@ for img in non_masked_images:
             rgb = cv2.cvtColor(frame,cv2.COLOR_BGR2RGB)
             #blur = cv2.GaussianBlur(frame, (21, 21), 0)
             hsv = cv2.cvtColor(rgb, cv2.COLOR_RGB2HSV)
-
+            count_yellow(hsv)
             avg_brightness = np.mean(hsv[:,:,2])
             bright_pixel_count = count_bright_pixels(hsv, 254)
 
@@ -51,8 +64,8 @@ for img in non_masked_images:
             #print(brightness, i)
             # lower = [0, 74, 200]
             # upper = [35, 255, 255]
-            lower = [15, 70, 50]
-            upper = [35, 255, 255]
+            lower = [10, 70, 50]
+            upper = [30, 255, 255]
             lower = np.array(lower, dtype="uint8")
             upper = np.array(upper, dtype="uint8")
 
